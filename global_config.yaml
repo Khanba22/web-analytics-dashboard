@@ -1,0 +1,35 @@
+# Global configuration for Web Analytics Platform
+# Shared across all services
+
+kafka:
+  bootstrap_servers: "kafka:9092"
+  topic: "web_events"
+  consumer_group: "py-log-writer"
+  auto_offset_reset: "earliest"
+
+paths:
+  logs_dir: "/data/logs"
+  events_log: "/data/logs/events.jsonl"
+  sessions_log: "/data/logs/sessions.jsonl"
+
+pyspark:
+  etl_output_dir: "/data/processed"
+  tmp_dir: "/data/tmp"
+  app_name: "WebAnalyticsETL"
+
+cron:
+  etl_interval_seconds: 300  # Run ETL every 5 minutes
+
+postgres:
+  host: "postgres"
+  port: 5432
+  db: "analytics"
+  user: "analytics"
+  password: "analytics_password"
+  
+api:
+  ingestion_port: 8000
+  
+dashboard:
+  port: 3000
+

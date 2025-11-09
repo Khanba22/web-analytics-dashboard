@@ -1,0 +1,175 @@
+# Event Simulator Configuration
+# Configure realistic event generation with probabilistic behavior
+
+simulation:
+  # Number of concurrent users to simulate
+  num_users: 10
+  
+  # Duration of simulation in seconds (0 = run indefinitely)
+  duration_seconds: 300  # 5 minutes
+  
+  # Base interval between events per user (seconds)
+  base_interval: 2.0
+  
+  # Add randomness to intervals (± percentage)
+  interval_variance: 0.5  # 50% variance
+  
+  # API endpoint configuration
+  # - Use http://localhost:8000 when running from the host machine
+  # - Use http://backend:8000 when running inside the Docker network
+  api_url: "http://localhost:8000/api/events"
+  
+  # Request timeout in seconds
+  timeout: 5
+
+# User behavior configuration
+user_behavior:
+  # Session duration (min, max) in seconds
+  session_duration_min: 60    # 1 minute
+  session_duration_max: 600   # 10 minutes
+  
+  # Pages visited per session (min, max)
+  pages_per_session_min: 3
+  pages_per_session_max: 15
+  
+  # Time spent per page (min, max) in seconds
+  time_per_page_min: 10
+  time_per_page_max: 120
+  
+  # Button clicks per page (min, max)
+  clicks_per_page_min: 0
+  clicks_per_page_max: 8
+
+# Event probabilities (must sum to 1.0 for each category)
+# These determine the relative frequency of each event type
+
+event_probabilities:
+  # Session events (rare)
+  session_start: 0.05      # 5% - User starts a session
+  session_end: 0.05        # 5% - User ends a session
+  
+  # Page events (medium frequency)
+  page_visit: 0.25         # 25% - User visits a page
+  page_close: 0.20         # 20% - User closes/leaves a page
+  
+  # Interaction events (high frequency)
+  button_click: 0.40       # 40% - User clicks a button
+  link_click: 0.05         # 5% - User clicks a link
+
+# Available pages for random selection
+pages:
+  - "/"
+  - "/home"
+  - "/products"
+  - "/product/123"
+  - "/product/456"
+  - "/product/789"
+  - "/about"
+  - "/contact"
+  - "/blog"
+  - "/blog/post-1"
+  - "/blog/post-2"
+  - "/pricing"
+  - "/features"
+  - "/docs"
+  - "/support"
+  - "/login"
+  - "/signup"
+  - "/dashboard"
+  - "/profile"
+  - "/settings"
+
+# Available buttons/elements for interaction
+buttons:
+  - "signup_btn"
+  - "login_btn"
+  - "cta_hero"
+  - "cta_pricing"
+  - "add_to_cart"
+  - "checkout_btn"
+  - "subscribe_btn"
+  - "learn_more_btn"
+  - "get_started_btn"
+  - "contact_us_btn"
+  - "download_btn"
+  - "play_video_btn"
+  - "nav_products"
+  - "nav_about"
+  - "nav_contact"
+  - "footer_social_fb"
+  - "footer_social_tw"
+  - "footer_social_li"
+  - "search_btn"
+  - "filter_btn"
+  - "sort_btn"
+  - "share_btn"
+
+# Realistic user journey patterns
+# Define common user flows with their probabilities
+user_journeys:
+  # Home -> Products -> Product Detail -> Cart (30% of users)
+  - probability: 0.30
+    path:
+      - "/home"
+      - "/products"
+      - "/product/123"
+    likely_clicks:
+      - "add_to_cart"
+      - "checkout_btn"
+  
+  # Home -> Blog -> Blog Post (20% of users)
+  - probability: 0.20
+    path:
+      - "/home"
+      - "/blog"
+      - "/blog/post-1"
+    likely_clicks:
+      - "subscribe_btn"
+      - "share_btn"
+  
+  # Home -> Pricing -> Signup (25% of users)
+  - probability: 0.25
+    path:
+      - "/home"
+      - "/pricing"
+      - "/signup"
+    likely_clicks:
+      - "get_started_btn"
+      - "signup_btn"
+  
+  # Home -> About -> Contact (15% of users)
+  - probability: 0.15
+    path:
+      - "/home"
+      - "/about"
+      - "/contact"
+    likely_clicks:
+      - "contact_us_btn"
+  
+  # Random browsing (10% of users)
+  - probability: 0.10
+    path: []  # Empty means random pages
+    likely_clicks: []
+
+# Advanced settings
+advanced:
+  # Print detailed logs
+  verbose: true
+  
+  # Print summary statistics every N seconds
+  stats_interval: 30
+  
+  # Retry failed requests
+  retry_on_failure: true
+  max_retries: 3
+  
+  # Simulate realistic delays
+  human_like_delays: true
+  
+  # Save events to local file as backup
+  save_to_file: false
+  output_file: "simulated_events.jsonl"
+  
+  # User agent string
+  user_agent: "EventSimulator/1.0"
+

@@ -1,0 +1,5 @@
+# Python dependencies for Event Simulator
+
+requests==2.31.0
+pyyaml==6.0.1
+

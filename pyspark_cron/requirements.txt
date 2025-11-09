@@ -1,0 +1,6 @@
+# PySpark ETL Job Dependencies
+
+pyspark==3.4.1
+pyyaml==6.0.1
+py4j==0.10.9.7
+
